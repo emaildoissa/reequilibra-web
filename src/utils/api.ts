@@ -1,7 +1,8 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export async function apiFetch(endpoint: string, options: RequestInit = {}) {
-    const token = localStorage.getItem('token');
+    // Esta linha extrai o token e limpa qualquer aspa perdida!
+    const token = localStorage.getItem('token')?.replace(/['"]+/g, '');
 
     const headers: Record<string, string> = {
         'Content-Type': 'application/json',
