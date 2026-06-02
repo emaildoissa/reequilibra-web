@@ -253,7 +253,7 @@ export default function LeadProfile() {
                         </div>
                     ) : (
                         <div className="space-y-6">
-                            {/* Card Resumo */}
+                            {/* Card Perfil Financeiro */}
                             <div className="card">
                                 <div className="flex items-center gap-2 mb-4 border-b border-[#2a2a35] pb-3">
                                     <span className="material-symbols-outlined text-[#6366f1]">person</span>
@@ -276,8 +276,48 @@ export default function LeadProfile() {
                                         <p className="text-zinc-500 text-xs font-semibold mb-1">Dependentes</p>
                                         <p className="text-zinc-100 text-sm font-medium">{diagnosticoCompleto.dependentes || '-'}</p>
                                     </div>
+                                    <div className="p-3 rounded-xl bg-[#1c1c24] border border-[#2a2a35]">
+                                        <p className="text-zinc-500 text-xs font-semibold mb-1">Estado Civil</p>
+                                        <p className="text-zinc-100 text-sm font-medium">{diagnosticoCompleto.estado_civil || '-'}</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl bg-[#1c1c24] border border-[#2a2a35]">
+                                        <p className="text-zinc-500 text-xs font-semibold mb-1">Cidade/Estado</p>
+                                        <p className="text-zinc-100 text-sm font-medium">{diagnosticoCompleto.cidade_estado || '-'}</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl bg-[#1c1c24] border border-[#2a2a35]">
+                                        <p className="text-zinc-500 text-xs font-semibold mb-1">E-mail</p>
+                                        <p className="text-zinc-100 text-sm font-medium truncate" title={diagnosticoCompleto.email}>{diagnosticoCompleto.email || '-'}</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl bg-[#1c1c24] border border-[#2a2a35]">
+                                        <p className="text-zinc-500 text-xs font-semibold mb-1">Nome Completo</p>
+                                        <p className="text-zinc-100 text-sm font-medium truncate" title={diagnosticoCompleto.nome_completo}>{diagnosticoCompleto.nome_completo || '-'}</p>
+                                    </div>
                                 </div>
                             </div>
+
+                            {/* Card Renda Adicional */}
+                            {(diagnosticoCompleto.outra_renda_familiar || diagnosticoCompleto.renda_adicional_valor || diagnosticoCompleto.renda_sazonalidade) && (
+                                <div className="card">
+                                    <div className="flex items-center gap-2 mb-4 border-b border-[#2a2a35] pb-3">
+                                        <span className="material-symbols-outlined text-teal-400">trending_up</span>
+                                        <h3 className="text-lg font-bold text-zinc-100">Renda Adicional</h3>
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div className="p-3 rounded-xl bg-[#1c1c24] border border-[#2a2a35]">
+                                            <p className="text-zinc-500 text-xs font-semibold mb-1">Outra Renda Familiar</p>
+                                            <p className="text-zinc-100 text-sm font-medium">{diagnosticoCompleto.outra_renda_familiar || '-'}</p>
+                                        </div>
+                                        <div className="p-3 rounded-xl bg-[#1c1c24] border border-[#2a2a35]">
+                                            <p className="text-zinc-500 text-xs font-semibold mb-1">Valor Adicional</p>
+                                            <p className="text-zinc-100 text-sm font-medium">{diagnosticoCompleto.renda_adicional_valor || '-'}</p>
+                                        </div>
+                                        <div className="p-3 rounded-xl bg-[#1c1c24] border border-[#2a2a35]">
+                                            <p className="text-zinc-500 text-xs font-semibold mb-1">Sazonalidade</p>
+                                            <p className="text-zinc-100 text-sm font-medium">{diagnosticoCompleto.renda_sazonalidade || '-'}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
                             {/* Card Dívidas Detalhadas */}
                             <div className="card">
@@ -334,6 +374,26 @@ export default function LeadProfile() {
                                 </div>
                             </div>
 
+                            {/* Card Empréstimos */}
+                            {(diagnosticoCompleto.emprestimos_pessoais || diagnosticoCompleto.emprestimo_para_pagar_divida) && (
+                                <div className="card">
+                                    <div className="flex items-center gap-2 mb-4 border-b border-[#2a2a35] pb-3">
+                                        <span className="material-symbols-outlined text-orange-400">account_balance_wallet</span>
+                                        <h3 className="text-lg font-bold text-zinc-100">Empréstimos</h3>
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="p-3 rounded-xl bg-[#1c1c24] border border-[#2a2a35]">
+                                            <p className="text-zinc-500 text-xs font-semibold mb-1">Empréstimos Pessoais</p>
+                                            <p className="text-zinc-100 text-sm font-medium">{diagnosticoCompleto.emprestimos_pessoais || '-'}</p>
+                                        </div>
+                                        <div className="p-3 rounded-xl bg-[#1c1c24] border border-[#2a2a35]">
+                                            <p className="text-zinc-500 text-xs font-semibold mb-1">Empréstimo para Pagar Dívida</p>
+                                            <p className="text-zinc-100 text-sm font-medium">{diagnosticoCompleto.emprestimo_para_pagar_divida || '-'}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
                             {/* Detalhes Complementares em Grid */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {/* Gastos Mensais */}
@@ -351,15 +411,57 @@ export default function LeadProfile() {
                                             <span className="text-sm text-zinc-400">Despesas Atrasadas?</span>
                                             <span className="text-sm font-medium text-white">{diagnosticoCompleto.despesas_atrasadas || '-'}</span>
                                         </div>
+                                        {(() => {
+                                            try {
+                                                const gastos = typeof diagnosticoCompleto.gastos_mensais === 'string'
+                                                    ? JSON.parse(diagnosticoCompleto.gastos_mensais)
+                                                    : diagnosticoCompleto.gastos_mensais;
+                                                if (gastos && typeof gastos === 'object') {
+                                                    const labels: Record<string, string> = {
+                                                        aluguel: 'Aluguel', condominio: 'Condomínio', luz: 'Luz',
+                                                        agua: 'Água', internet: 'Internet', mercado: 'Mercado',
+                                                        transporte: 'Transporte', saude: 'Saúde', escola: 'Escola',
+                                                        pensao: 'Pensão', outros: 'Outros'
+                                                    };
+                                                    return (
+                                                        <div className="mt-3">
+                                                            <p className="text-xs font-semibold text-zinc-500 mb-2">Detalhamento Mensal</p>
+                                                            <div className="space-y-1.5">
+                                                                {Object.entries(gastos).map(([key, val]) => (
+                                                                    val && String(val).trim() && (
+                                                                        <div key={key} className="flex justify-between items-center text-sm">
+                                                                            <span className="text-zinc-400">{labels[key] || key}</span>
+                                                                            <span className="text-zinc-100 font-medium">{String(val)}</span>
+                                                                        </div>
+                                                                    )
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                }
+                                            } catch (e) { /* ignore */ }
+                                            return null;
+                                        })()}
                                         <div className="mt-3">
                                             <p className="text-xs font-semibold text-zinc-500 mb-2">Comportamento</p>
                                             {(() => {
                                                 try {
                                                     const comp = typeof diagnosticoCompleto.comportamento_financeiro === 'string' ? JSON.parse(diagnosticoCompleto.comportamento_financeiro) : diagnosticoCompleto.comportamento_financeiro;
+                                                    if (!comp) return <p className="text-sm text-zinc-500">Sem dados.</p>;
+                                                    const compLabels: Record<string, string> = {
+                                                        causa_descontrole: 'Maior descontrole',
+                                                        reserva: 'Reserva de emergência',
+                                                        controle_entradas_saidas: 'Controle entradas/saídas',
+                                                        anota_gastos: 'Anota gastos',
+                                                        sabe_quanto_deve: 'Sabe quanto deve'
+                                                    };
                                                     return (
                                                         <ul className="text-sm text-zinc-300 space-y-1">
-                                                            <li>• Maior descontrole: {comp?.causa_descontrole || '-'}</li>
-                                                            <li>• Reserva de emergência: {comp?.reserva || '-'}</li>
+                                                            {Object.entries(comp).map(([key, val]) => (
+                                                                val && String(val).trim() && (
+                                                                    <li key={key}>• {compLabels[key] || key}: {String(val)}</li>
+                                                                )
+                                                            ))}
                                                         </ul>
                                                     );
                                                 } catch (e) { return null; }
@@ -380,26 +482,244 @@ export default function LeadProfile() {
                                                 const jur = typeof diagnosticoCompleto.situacao_juridica === 'string' ? JSON.parse(diagnosticoCompleto.situacao_juridica) : diagnosticoCompleto.situacao_juridica;
                                                 if (!jur) return <p className="text-sm text-zinc-500">Sem dados.</p>;
 
+                                                const jurLabels: Record<string, string> = {
+                                                    negativado: 'Negativado?',
+                                                    acao_judicial: 'Ação Judicial?',
+                                                    bloqueio: 'Bloqueio/Penhora?',
+                                                    bloqueio_penhora: 'Bloqueio/Penhora?',
+                    explicacao: 'Explicação',
+                                                    empresas_negativaram: 'Empresas que negativaram',
+                                                    notificacao_extrajudicial: 'Notificação Extrajudicial?',
+                                                    cobranca_abusiva: 'Cobrança Abusiva?'
+                                                };
+
                                                 return (
                                                     <>
-                                                        <div className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
-                                                            <span className="text-sm text-zinc-400">Negativado?</span>
-                                                            <span className={`text-sm font-medium ${jur.negativado === 'Sim' ? 'text-rose-400' : 'text-emerald-400'}`}>{jur.negativado || '-'}</span>
-                                                        </div>
-                                                        <div className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
-                                                            <span className="text-sm text-zinc-400">Ação Judicial?</span>
-                                                            <span className={`text-sm font-medium ${jur.acao_judicial === 'Sim' ? 'text-rose-400' : 'text-zinc-300'}`}>{jur.acao_judicial || '-'}</span>
-                                                        </div>
-                                                        <div className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
-                                                            <span className="text-sm text-zinc-400">Bloqueio/Penhora?</span>
-                                                            <span className={`text-sm font-medium ${jur.bloqueio === 'Sim' ? 'text-rose-400' : 'text-zinc-300'}`}>{jur.bloqueio || '-'}</span>
-                                                        </div>
+                                                        {Object.entries(jur).map(([key, val]) => (
+                                                            val && String(val).trim() && (
+                                                                <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                    <span className="text-sm text-zinc-400">{jurLabels[key] || key}</span>
+                                                                    <span className={`text-sm font-medium ${['Sim', 'sim'].includes(String(val)) ? 'text-rose-400' : 'text-zinc-300'}`}>{String(val)}</span>
+                                                                </div>
+                                                            )
+                                                        ))}
                                                     </>
                                                 );
                                             } catch (e) { return null; }
                                         })()}
                                     </div>
                                 </div>
+
+                                {/* Cartão de Crédito */}
+                                {(() => {
+                                    try {
+                                        const cc = typeof diagnosticoCompleto.cartao_credito === 'string'
+                                            ? JSON.parse(diagnosticoCompleto.cartao_credito)
+                                            : diagnosticoCompleto.cartao_credito;
+                                        if (!cc) return null;
+                                        const ccLabels: Record<string, string> = {
+                                            possui: 'Possui?', quantidade: 'Quantidade',
+                                            pagamento_total_parcial: 'Pagamento', valor_faturas: 'Valor Faturas',
+                                            usa_para_basico: 'Usa para básico?'
+                                        };
+                                        return (
+                                            <div className="card">
+                                                <div className="flex items-center gap-2 mb-4 border-b border-[#2a2a35] pb-3">
+                                                    <span className="material-symbols-outlined text-sky-400">credit_card</span>
+                                                    <h3 className="text-lg font-bold text-zinc-100">Cartão de Crédito</h3>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    {Object.entries(cc).map(([key, val]) => (
+                                                        val && String(val).trim() && (
+                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                <span className="text-sm text-zinc-400">{ccLabels[key] || key}</span>
+                                                                <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
+                                                            </div>
+                                                        )
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        );
+                                    } catch (e) { return null; }
+                                })()}
+
+                                {/* Cheque Especial */}
+                                {(() => {
+                                    try {
+                                        const ce = typeof diagnosticoCompleto.cheque_especial === 'string'
+                                            ? JSON.parse(diagnosticoCompleto.cheque_especial)
+                                            : diagnosticoCompleto.cheque_especial;
+                                        if (!ce) return null;
+                                        return (
+                                            <div className="card">
+                                                <div className="flex items-center gap-2 mb-4 border-b border-[#2a2a35] pb-3">
+                                                    <span className="material-symbols-outlined text-yellow-400">money_off</span>
+                                                    <h3 className="text-lg font-bold text-zinc-100">Cheque Especial</h3>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    {Object.entries(ce).map(([key, val]) => (
+                                                        val && String(val).trim() && (
+                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                <span className="text-sm text-zinc-400">{key === 'usa' ? 'Usa?' : key === 'valor_aproximado' ? 'Valor Aproximado' : key}</span>
+                                                                <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
+                                                            </div>
+                                                        )
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        );
+                                    } catch (e) { return null; }
+                                })()}
+
+                                {/* Consignado */}
+                                {(() => {
+                                    try {
+                                        const consig = typeof diagnosticoCompleto.consignado === 'string'
+                                            ? JSON.parse(diagnosticoCompleto.consignado)
+                                            : diagnosticoCompleto.consignado;
+                                        if (!consig) return null;
+                                        const consigLabels: Record<string, string> = {
+                                            possui: 'Possui?', quantidade: 'Quantidade',
+                                            valor_total_desconto: 'Valor Total Desconto',
+                                            compromete_sobrevivencia: 'Compromete Sobrevivência?',
+                                            refinanciamento_portabilidade: 'Refinanciamento/Portabilidade?',
+                                            sabe_margem: 'Sabe a Margem?'
+                                        };
+                                        return (
+                                            <div className="card">
+                                                <div className="flex items-center gap-2 mb-4 border-b border-[#2a2a35] pb-3">
+                                                    <span className="material-symbols-outlined text-cyan-400">account_balance</span>
+                                                    <h3 className="text-lg font-bold text-zinc-100">Consignado</h3>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    {Object.entries(consig).map(([key, val]) => (
+                                                        val && String(val).trim() && (
+                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                <span className="text-sm text-zinc-400">{consigLabels[key] || key}</span>
+                                                                <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
+                                                            </div>
+                                                        )
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        );
+                                    } catch (e) { return null; }
+                                })()}
+
+                                {/* Histórico de Soluções */}
+                                {(() => {
+                                    try {
+                                        const hist = typeof diagnosticoCompleto.historico_solucao === 'string'
+                                            ? JSON.parse(diagnosticoCompleto.historico_solucao)
+                                            : diagnosticoCompleto.historico_solucao;
+                                        if (!hist) return null;
+                                        return (
+                                            <div className="card">
+                                                <div className="flex items-center gap-2 mb-4 border-b border-[#2a2a35] pb-3">
+                                                    <span className="material-symbols-outlined text-indigo-400">history</span>
+                                                    <h3 className="text-lg font-bold text-zinc-100">Histórico de Soluções</h3>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    {Object.entries(hist).map(([key, val]) => (
+                                                        val && String(val).trim() && (
+                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                <span className="text-sm text-zinc-400">{key === 'procurou_ajuda' ? 'Procurou Ajuda?' : key === 'o_que_foi_tentado' ? 'O que foi tentado' : key}</span>
+                                                                <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
+                                                            </div>
+                                                        )
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        );
+                                    } catch (e) { return null; }
+                                })()}
+
+                                {/* Prioridades e Expectativas */}
+                                {(() => {
+                                    try {
+                                        const prio = typeof diagnosticoCompleto.prioridades === 'string'
+                                            ? JSON.parse(diagnosticoCompleto.prioridades)
+                                            : diagnosticoCompleto.prioridades;
+                                        if (!prio) return null;
+                                        const prioLabels: Record<string, string> = {
+                                            maior_prioridade: 'Maior Prioridade',
+                                            expectativa_diagnostico: 'Expectativa',
+                                            deseja_acompanhamento: 'Deseja Acompanhamento?',
+                                            autoriza_proposta: 'Autoriza Proposta?'
+                                        };
+                                        return (
+                                            <div className="card">
+                                                <div className="flex items-center gap-2 mb-4 border-b border-[#2a2a35] pb-3">
+                                                    <span className="material-symbols-outlined text-pink-400">flag</span>
+                                                    <h3 className="text-lg font-bold text-zinc-100">Prioridades & Expectativas</h3>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    {Object.entries(prio).map(([key, val]) => (
+                                                        val && String(val).trim() && (
+                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                <span className="text-sm text-zinc-400">{prioLabels[key] || key}</span>
+                                                                <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
+                                                            </div>
+                                                        )
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        );
+                                    } catch (e) { return null; }
+                                })()}
+
+                                {/* Documentos e Termos */}
+                                {(() => {
+                                    try {
+                                        const docs = typeof diagnosticoCompleto.documentos_status === 'string'
+                                            ? JSON.parse(diagnosticoCompleto.documentos_status)
+                                            : diagnosticoCompleto.documentos_status;
+                                        const termos = typeof diagnosticoCompleto.termos_aceite === 'string'
+                                            ? JSON.parse(diagnosticoCompleto.termos_aceite)
+                                            : diagnosticoCompleto.termos_aceite;
+                                        if (!docs && !termos) return null;
+                                        const docsLabels: Record<string, string> = {
+                                            possui_docs_agora: 'Possui Documentos?',
+                                            explicacao_falta_docs: 'Explicação',
+                                            arquivos_enviados: 'Arquivos Enviados'
+                                        };
+                                        const termosLabels: Record<string, string> = {
+                                            confirmacao_verdade: 'Confirmou Verdade?',
+                                            ciencia_limites: 'Ciência dos Limites?',
+                                            autorizacao_analise: 'Autorizou Análise?'
+                                        };
+                                        return (
+                                            <div className="card">
+                                                <div className="flex items-center gap-2 mb-4 border-b border-[#2a2a35] pb-3">
+                                                    <span className="material-symbols-outlined text-violet-400">description</span>
+                                                    <h3 className="text-lg font-bold text-zinc-100">Documentos & Termos</h3>
+                                                </div>
+                                                <div className="space-y-3">
+                                                    {docs && Object.entries(docs).map(([key, val]) => (
+                                                        val && String(val).trim() && (
+                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                <span className="text-sm text-zinc-400">{docsLabels[key] || key}</span>
+                                                                <span className="text-sm font-medium text-zinc-100">
+                                                                    {key === 'arquivos_enviados' && Array.isArray(val)
+                                                                        ? (val as string[]).join(', ') || '-'
+                                                                        : String(val)}
+                                                                </span>
+                                                            </div>
+                                                        )
+                                                    ))}
+                                                    {termos && Object.entries(termos).map(([key, val]) => (
+                                                        val && String(val).trim() && (
+                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                <span className="text-sm text-zinc-400">{termosLabels[key] || key}</span>
+                                                                <span className={`text-sm font-medium ${String(val) === 'Sim' ? 'text-emerald-400' : 'text-zinc-100'}`}>{String(val)}</span>
+                                                            </div>
+                                                        )
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        );
+                                    } catch (e) { return null; }
+                                })()}
                             </div>
                         </div>
                     )}
