@@ -427,14 +427,14 @@ export default function LeadProfile() {
                                                         <div className="mt-3">
                                                             <p className="text-xs font-semibold text-zinc-500 mb-2">Detalhamento Mensal</p>
                                                             <div className="space-y-1.5">
-                                                                {Object.entries(gastos).map(([key, val]) => (
-                                                                    val && String(val).trim() && (
+                                                                {Object.entries(gastos)
+                                                                    .filter(([_, v]) => v && String(v).trim())
+                                                                    .map(([key, val]) => (
                                                                         <div key={key} className="flex justify-between items-center text-sm">
                                                                             <span className="text-zinc-400">{labels[key] || key}</span>
                                                                             <span className="text-zinc-100 font-medium">{String(val)}</span>
                                                                         </div>
-                                                                    )
-                                                                ))}
+                                                                    ))}
                                                             </div>
                                                         </div>
                                                     );
@@ -457,11 +457,11 @@ export default function LeadProfile() {
                                                     };
                                                     return (
                                                         <ul className="text-sm text-zinc-300 space-y-1">
-                                                            {Object.entries(comp).map(([key, val]) => (
-                                                                val && String(val).trim() && (
-                                                                    <li key={key}>• {compLabels[key] || key}: {String(val)}</li>
-                                                                )
-                                                            ))}
+{Object.entries(comp)
+                                                                 .filter(([_, v]) => v && String(v).trim())
+                                                                 .map(([key, val]) => (
+                                                                     <li key={key}>• {compLabels[key] || key}: {String(val)}</li>
+                                                                 ))}
                                                         </ul>
                                                     );
                                                 } catch (e) { return null; }
@@ -495,14 +495,14 @@ export default function LeadProfile() {
 
                                                 return (
                                                     <>
-                                                        {Object.entries(jur).map(([key, val]) => (
-                                                            val && String(val).trim() && (
+                                                        {Object.entries(jur)
+                                                            .filter(([_, v]) => v && String(v).trim())
+                                                            .map(([key, val]) => (
                                                                 <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
                                                                     <span className="text-sm text-zinc-400">{jurLabels[key] || key}</span>
                                                                     <span className={`text-sm font-medium ${['Sim', 'sim'].includes(String(val)) ? 'text-rose-400' : 'text-zinc-300'}`}>{String(val)}</span>
                                                                 </div>
-                                                            )
-                                                        ))}
+                                                            ))}
                                                     </>
                                                 );
                                             } catch (e) { return null; }
@@ -529,14 +529,14 @@ export default function LeadProfile() {
                                                     <h3 className="text-lg font-bold text-zinc-100">Cartão de Crédito</h3>
                                                 </div>
                                                 <div className="space-y-2">
-                                                    {Object.entries(cc).map(([key, val]) => (
-                                                        val && String(val).trim() && (
-                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
-                                                                <span className="text-sm text-zinc-400">{ccLabels[key] || key}</span>
-                                                                <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
-                                                            </div>
-                                                        )
-                                                    ))}
+                                                    {Object.entries(cc)
+                                                         .filter(([_, v]) => v && String(v).trim())
+                                                         .map(([key, val]) => (
+                                                             <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                 <span className="text-sm text-zinc-400">{ccLabels[key] || key}</span>
+                                                                 <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
+                                                             </div>
+                                                         ))}
                                                 </div>
                                             </div>
                                         );
@@ -557,14 +557,14 @@ export default function LeadProfile() {
                                                     <h3 className="text-lg font-bold text-zinc-100">Cheque Especial</h3>
                                                 </div>
                                                 <div className="space-y-2">
-                                                    {Object.entries(ce).map(([key, val]) => (
-                                                        val && String(val).trim() && (
-                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
-                                                                <span className="text-sm text-zinc-400">{key === 'usa' ? 'Usa?' : key === 'valor_aproximado' ? 'Valor Aproximado' : key}</span>
-                                                                <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
-                                                            </div>
-                                                        )
-                                                    ))}
+                                                    {Object.entries(ce)
+                                                         .filter(([_, v]) => v && String(v).trim())
+                                                         .map(([key, val]) => (
+                                                             <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                 <span className="text-sm text-zinc-400">{key === 'usa' ? 'Usa?' : key === 'valor_aproximado' ? 'Valor Aproximado' : key}</span>
+                                                                 <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
+                                                             </div>
+                                                         ))}
                                                 </div>
                                             </div>
                                         );
@@ -592,14 +592,14 @@ export default function LeadProfile() {
                                                     <h3 className="text-lg font-bold text-zinc-100">Consignado</h3>
                                                 </div>
                                                 <div className="space-y-2">
-                                                    {Object.entries(consig).map(([key, val]) => (
-                                                        val && String(val).trim() && (
-                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
-                                                                <span className="text-sm text-zinc-400">{consigLabels[key] || key}</span>
-                                                                <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
-                                                            </div>
-                                                        )
-                                                    ))}
+                                                    {Object.entries(consig)
+                                                         .filter(([_, v]) => v && String(v).trim())
+                                                         .map(([key, val]) => (
+                                                             <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                 <span className="text-sm text-zinc-400">{consigLabels[key] || key}</span>
+                                                                 <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
+                                                             </div>
+                                                         ))}
                                                 </div>
                                             </div>
                                         );
@@ -620,14 +620,14 @@ export default function LeadProfile() {
                                                     <h3 className="text-lg font-bold text-zinc-100">Histórico de Soluções</h3>
                                                 </div>
                                                 <div className="space-y-2">
-                                                    {Object.entries(hist).map(([key, val]) => (
-                                                        val && String(val).trim() && (
-                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
-                                                                <span className="text-sm text-zinc-400">{key === 'procurou_ajuda' ? 'Procurou Ajuda?' : key === 'o_que_foi_tentado' ? 'O que foi tentado' : key}</span>
-                                                                <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
-                                                            </div>
-                                                        )
-                                                    ))}
+                                                    {Object.entries(hist)
+                                                         .filter(([_, v]) => v && String(v).trim())
+                                                         .map(([key, val]) => (
+                                                             <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                 <span className="text-sm text-zinc-400">{key === 'procurou_ajuda' ? 'Procurou Ajuda?' : key === 'o_que_foi_tentado' ? 'O que foi tentado' : key}</span>
+                                                                 <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
+                                                             </div>
+                                                         ))}
                                                 </div>
                                             </div>
                                         );
@@ -654,14 +654,14 @@ export default function LeadProfile() {
                                                     <h3 className="text-lg font-bold text-zinc-100">Prioridades & Expectativas</h3>
                                                 </div>
                                                 <div className="space-y-2">
-                                                    {Object.entries(prio).map(([key, val]) => (
-                                                        val && String(val).trim() && (
-                                                            <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
-                                                                <span className="text-sm text-zinc-400">{prioLabels[key] || key}</span>
-                                                                <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
-                                                            </div>
-                                                        )
-                                                    ))}
+                                                    {Object.entries(prio)
+                                                         .filter(([_, v]) => v && String(v).trim())
+                                                         .map(([key, val]) => (
+                                                             <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
+                                                                 <span className="text-sm text-zinc-400">{prioLabels[key] || key}</span>
+                                                                 <span className="text-sm font-medium text-zinc-100">{String(val)}</span>
+                                                             </div>
+                                                         ))}
                                                 </div>
                                             </div>
                                         );
@@ -695,8 +695,9 @@ export default function LeadProfile() {
                                                     <h3 className="text-lg font-bold text-zinc-100">Documentos & Termos</h3>
                                                 </div>
                                                 <div className="space-y-3">
-                                                    {docs && Object.entries(docs).map(([key, val]) => (
-                                                        val && String(val).trim() && (
+                                                    {docs && Object.entries(docs)
+                                                            .filter(([_, v]) => v && String(v).trim())
+                                                            .map(([key, val]) => (
                                                             <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
                                                                 <span className="text-sm text-zinc-400">{docsLabels[key] || key}</span>
                                                                 <span className="text-sm font-medium text-zinc-100">
@@ -705,16 +706,15 @@ export default function LeadProfile() {
                                                                         : String(val)}
                                                                 </span>
                                                             </div>
-                                                        )
-                                                    ))}
-                                                    {termos && Object.entries(termos).map(([key, val]) => (
-                                                        val && String(val).trim() && (
+                                                        ))}
+                                                    {termos && Object.entries(termos)
+                                                            .filter(([_, v]) => v && String(v).trim())
+                                                            .map(([key, val]) => (
                                                             <div key={key} className="flex justify-between items-center p-2 rounded-lg bg-[#1c1c24]">
                                                                 <span className="text-sm text-zinc-400">{termosLabels[key] || key}</span>
                                                                 <span className={`text-sm font-medium ${String(val) === 'Sim' ? 'text-emerald-400' : 'text-zinc-100'}`}>{String(val)}</span>
                                                             </div>
-                                                        )
-                                                    ))}
+                                                        ))}
                                                 </div>
                                             </div>
                                         );
