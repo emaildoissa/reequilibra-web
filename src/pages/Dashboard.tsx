@@ -20,6 +20,7 @@ interface Stats {
     semClass: number;
     triagem: number;
     proposta: number;
+    aguardando_documentos: number;
     finalizado: number;
 }
 
@@ -115,43 +116,59 @@ export default function Dashboard() {
                         </div>
                         <div className="flex flex-col items-center">
                             <span className="text-[10px] font-extrabold text-[#6366f1] bg-[#6366f1]/10 border border-[#6366f1]/20 px-2.5 py-1 rounded-full whitespace-nowrap">
-                                {stats?.total ? ((( (stats.proposta + stats.finalizado) / stats.total) * 100).toFixed(0)) : '0'}% Avanço
+                                {stats?.total ? ((((stats.proposta + stats.aguardando_documentos + stats.finalizado) / stats.total) * 100).toFixed(0)) : '0'}% Avanço
                             </span>
                         </div>
                     </div>
 
-                    {/* Stage 2: Proposta */}
+                    {/* Stage 2: Pagamento */}
                     <div className="w-full lg:flex-1 flex flex-col p-5 rounded-2xl bg-[#1c1c24]/50 border border-[#2a2a35] hover:border-[#f59e0b]/30 transition-all text-center relative group">
                         <div className="absolute top-0 left-0 right-0 h-1 bg-[#f59e0b] rounded-t-2xl opacity-60 group-hover:opacity-100 transition-opacity" />
                         <div className="w-12 h-12 rounded-2xl bg-[#f59e0b]/15 flex items-center justify-center mx-auto mb-3 text-[#f59e0b] transition-transform group-hover:scale-110">
-                            <span className="material-symbols-outlined text-2xl">description</span>
+                            <span className="material-symbols-outlined text-2xl">payments</span>
                         </div>
-                        <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">2. Proposta Enviada</span>
+                        <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">2. Pagamento</span>
                         <span className="text-4xl font-black text-zinc-100 mt-2">{stats?.proposta ?? 0}</span>
-                        <span className="text-[10px] text-zinc-500 mt-1 font-medium">Análise de diagnóstico</span>
+                        <span className="text-[10px] text-zinc-500 mt-1 font-medium">Link enviado</span>
                     </div>
 
                     {/* Arrow 2 */}
+                    <div className="flex lg:flex-col justify-center items-center py-2 lg:py-0 px-2 text-zinc-500">
+                        <span className="material-symbols-outlined text-xl text-zinc-600">double_arrow</span>
+                    </div>
+
+                    {/* Stage 3: Documentos */}
+                    <div className="w-full lg:flex-1 flex flex-col p-5 rounded-2xl bg-[#1c1c24]/50 border border-[#2a2a35] hover:border-[#a855f7]/30 transition-all text-center relative group">
+                        <div className="absolute top-0 left-0 right-0 h-1 bg-[#a855f7] rounded-t-2xl opacity-60 group-hover:opacity-100 transition-opacity" />
+                        <div className="w-12 h-12 rounded-2xl bg-[#a855f7]/15 flex items-center justify-center mx-auto mb-3 text-[#a855f7] transition-transform group-hover:scale-110">
+                            <span className="material-symbols-outlined text-2xl">folder_open</span>
+                        </div>
+                        <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">3. Fase de Documentos</span>
+                        <span className="text-4xl font-black text-zinc-100 mt-2">{stats?.aguardando_documentos ?? 0}</span>
+                        <span className="text-[10px] text-zinc-500 mt-1 font-medium">Formulário e uploads</span>
+                    </div>
+
+                    {/* Arrow 3 */}
                     <div className="flex lg:flex-col justify-center items-center py-2 lg:py-0 px-2 text-zinc-500 gap-2">
                         <div className="flex items-center gap-0.5">
-                            <span className="material-symbols-outlined text-xl text-[#f472b6] animate-pulse">double_arrow</span>
+                            <span className="material-symbols-outlined text-xl text-emerald-400 animate-pulse">double_arrow</span>
                         </div>
                         <div className="flex flex-col items-center">
-                            <span className="text-[10px] font-extrabold text-[#f472b6] bg-[#f472b6]/10 border border-[#f472b6]/20 px-2.5 py-1 rounded-full whitespace-nowrap">
-                                {(stats?.proposta || stats?.finalizado) ? (((stats.finalizado / (stats.proposta + stats.finalizado)) * 100).toFixed(0)) : '0'}% Fechamento
+                            <span className="text-[10px] font-extrabold text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2.5 py-1 rounded-full whitespace-nowrap">
+                                {(stats?.proposta || stats?.aguardando_documentos || stats?.finalizado) ? ((stats.finalizado / (stats.proposta + stats.aguardando_documentos + stats.finalizado)) * 100).toFixed(0) : '0'}% Fechamento
                             </span>
                         </div>
                     </div>
 
-                    {/* Stage 3: Fechado */}
+                    {/* Stage 4: Finalizado */}
                     <div className="w-full lg:flex-1 flex flex-col p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 border border-emerald-500/20 hover:border-emerald-500/40 transition-all text-center relative group">
                         <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500/80 rounded-t-2xl opacity-100" />
                         <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center mx-auto mb-3 text-emerald-400 transition-transform group-hover:scale-110">
-                            <span className="material-symbols-outlined text-2xl">payments</span>
+                            <span className="material-symbols-outlined text-2xl">check_circle</span>
                         </div>
-                        <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider">3. Faturamento Fechado</span>
+                        <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider">4. Finalizado</span>
                         <span className="text-4xl font-black text-emerald-400 mt-2">{stats?.finalizado ?? 0}</span>
-                        <span className="text-[10px] text-emerald-500/70 mt-1 font-medium">Clientes Ativos</span>
+                        <span className="text-[10px] text-emerald-500/70 mt-1 font-medium">Diagnóstico entregue</span>
                     </div>
                 </div>
             </div>
