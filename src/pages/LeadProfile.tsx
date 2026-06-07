@@ -827,6 +827,26 @@ export default function LeadProfile() {
                                     <p className="font-medium text-sm">{lead.estado_atual.replace('AGUARDANDO_', 'Etapa ')}</p>
                                 </div>
                             </div>
+                            {(() => {
+                                let driveUrl = '';
+                                try {
+                                    const parsed = typeof lead.dados_lead === 'string' ? JSON.parse(lead.dados_lead) : lead.dados_lead;
+                                    driveUrl = parsed?.drive_folder_url || '';
+                                } catch (e) {}
+                                return driveUrl ? (
+                                    <div className="flex items-center gap-4 p-3 rounded-xl bg-[#1c1c24]">
+                                        <div className="w-10 h-10 rounded-xl bg-[#635bff]/20 flex items-center justify-center">
+                                            <span className="material-symbols-outlined text-[#6366f1]">folder</span>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs text-zinc-500">Pasta Drive</p>
+                                            <a href={driveUrl} target="_blank" rel="noreferrer" className="font-medium text-sm text-[#635bff] hover:underline">
+                                                Acessar documentos
+                                            </a>
+                                        </div>
+                                    </div>
+                                ) : null;
+                            })()}
                         </div>
                     </div>
                 </div>
